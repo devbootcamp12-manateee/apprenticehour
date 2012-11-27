@@ -18,9 +18,11 @@ group :development, :test do
   gem 'spork'
   gem 'shoulda-matchers'
   gem 'database_cleaner'
+  gem 'faker'
 end
 
 group :test do
+  gem 'nokogiri'
   gem 'capybara'
 end
 
