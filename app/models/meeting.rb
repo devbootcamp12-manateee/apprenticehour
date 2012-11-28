@@ -7,10 +7,11 @@ class Meeting < ActiveRecord::Base
 
   validates :mentee_id, :status, :topic_id, :presence => true
   validates :description,  
-    presence: true, 
-    length: { maximum: 200 }
-
-  validates :neighborhood, :presence => true, :length => { maximum: 64 }
+    :presence => true, 
+    :length => { maximum: 200 }
+  validates :neighborhood,
+    :presence => true,
+    :length => { maximum: 64 }
 
   scope :available, where(:status => 'available')
   scope :matched, where(:status => 'matched')
