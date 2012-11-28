@@ -1,11 +1,12 @@
 class Meeting < ActiveRecord::Base
-  attr_accessible :description, :mentee_id, :mentor_id, :neighborhood, :status, :topic_id
+  attr_accessible :description, :neighborhood, :status, :topic_id
 
   belongs_to :mentee, :class_name => "User"
   belongs_to :mentor, :class_name => "User"
   belongs_to :topic
 
-  validates :mentee_id, :status, :topic_id, :presence => true
+  validates :mentee_id, :status, :topic_id,
+    :presence => true
   validates :description,  
     :presence => true, 
     :length => { maximum: 200 }
