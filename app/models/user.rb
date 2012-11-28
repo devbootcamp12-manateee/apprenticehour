@@ -1,19 +1,20 @@
-#
 # == Schema Information
+#
 # Table name: users
 #
-#  id       :integer          not null, primary key
-#  uid      :string(255)
-#  provider :string(255)
-#  name     :string(255)
-#  email    :string(255)
-#  gravatar :string(255)
+#  id               :integer          not null, primary key
+#  uid              :string(255)
+#  provider         :string(255)
+#  name             :string(255)
+#  email            :string(255)
+#  gravatar         :string(255)
+#  oauth_token      :string(255)
+#  oauth_expires_at :datetime
+#  remember_token   :string(255)
 #
 
+#
 class User < ActiveRecord::Base
-  # FIX THIS!!!
-  # attr_accessible :uid, :provider, :name, :email, :gravatar
-
   validates :uid,      :presence => true
   validates :provider, :presence => true
   validates :name,     :presence => true
@@ -25,6 +26,8 @@ class User < ActiveRecord::Base
     :foreign_key => 'mentor_id'
   has_many :mentee_meetings, :class_name => 'Meeting',
     :foreign_key => 'mentee_id'
+
+  before_save :create_remember_token
 
   def self.from_oauth(auth)
     where(auth.slice(:provider, :uid)).first_or_initialize.tap do |user|
@@ -38,4 +41,10 @@ class User < ActiveRecord::Base
       user.save!
     end
   end
+
+private
+  def create_remember_token
+    self.remember_token = SecureRandom.urlsafe_base64
+  end
+
 end

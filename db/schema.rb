@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121127174400) do
+ActiveRecord::Schema.define(:version => 20121128182017) do
 
   create_table "meetings", :force => true do |t|
     t.integer  "mentee_id"
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(:version => 20121127174400) do
     t.string   "gravatar"
     t.string   "oauth_token"
     t.datetime "oauth_expires_at"
+    t.string   "remember_token"
   end
 
 end

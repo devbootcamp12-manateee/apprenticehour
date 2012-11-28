@@ -2,12 +2,15 @@
 #
 # Table name: users
 #
-#  id       :integer          not null, primary key
-#  uid      :string(255)
-#  provider :string(255)
-#  name     :string(255)
-#  email    :string(255)
-#  gravatar :string(255)
+#  id               :integer          not null, primary key
+#  uid              :string(255)
+#  provider         :string(255)
+#  name             :string(255)
+#  email            :string(255)
+#  gravatar         :string(255)
+#  oauth_token      :string(255)
+#  oauth_expires_at :datetime
+#  remember_token   :string(255)
 #
 
 require 'spec_helper'
@@ -22,7 +25,7 @@ describe User do
 	it { should validate_presence_of :name }
 	it { should validate_presence_of :email }
 	it { should validate_presence_of :gravatar }
-
+	
 	it { should validate_uniqueness_of :email }
 
 	it { should_not allow_mass_assignment_of :uid }
@@ -30,6 +33,13 @@ describe User do
 	it { should_not allow_mass_assignment_of :name }
 	it { should_not allow_mass_assignment_of :email }
 	it { should_not allow_mass_assignment_of :gravatar }
+
+	describe 'remember_token' do
+		it 'exists' do
+			user = create(:user)
+			user.remember_token.should_not be_blank
+		end
+	end
 
 	describe '#mentee_meetings' do
 		it 'returns a list of meetings for which the user is the mentee' do
