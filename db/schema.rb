@@ -30,4 +30,12 @@ ActiveRecord::Schema.define(:version => 20121127200016) do
     t.datetime "updated_at",  :null => false
   end
 
+  create_table "users", :force => true do |t|
+    t.string "uid"
+    t.string "provider"
+    t.string "name"
+    t.string "email"
+    t.string "gravatar"
+  end
+
 end
