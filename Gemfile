@@ -24,6 +24,7 @@ end
 group :test do
   gem 'nokogiri'
   gem 'capybara'
+  gem 'rb-fsevent'
 end
 
 
