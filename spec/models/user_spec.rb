@@ -64,6 +64,10 @@ describe User do
 			expect { User.from_oauth(fakeauth)}.to change(User, :count).by(1)
 		end
 
-		it 'updates existing user with new data from github'
+		it 'updates existing user with new data from github' do
+			fakeauth.info.name = 'Joe'
+			User.from_oauth(fakeauth)
+			User.last.name.should eq 'Joe'
+		end
 	end
 end
