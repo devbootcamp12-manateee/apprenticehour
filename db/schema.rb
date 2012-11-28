@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121127200016) do
+ActiveRecord::Schema.define(:version => 20121127174400) do
 
   create_table "meetings", :force => true do |t|
     t.integer  "mentee_id"
@@ -31,11 +31,13 @@ ActiveRecord::Schema.define(:version => 20121127200016) do
   end
 
   create_table "users", :force => true do |t|
-    t.string "uid"
-    t.string "provider"
-    t.string "name"
-    t.string "email"
-    t.string "gravatar"
+    t.string   "uid"
+    t.string   "provider"
+    t.string   "name"
+    t.string   "email"
+    t.string   "gravatar"
+    t.string   "oauth_token"
+    t.datetime "oauth_expires_at"
   end
 
 end

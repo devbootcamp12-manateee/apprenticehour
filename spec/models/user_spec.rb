@@ -50,4 +50,20 @@ describe User do
 			user.mentor_meetings.should eq [mentor_meeting]
 		end
 	end
+
+	describe '.from_oauth' do
+		let(:fakeauth) { Hashie::Mash.new(:provider => 'github',
+				                              :uid => '12345',
+				                              :info => Hashie::Mash.new(:name => 'Bob',
+				                              	                        :email => 'bob@bob.com'),
+				                              :extra => Hashie::Mash.new(:gravatar_id => 'sasdad'),
+				                              :credentials => Hashie::Mash.new(:token => '1234',
+																				                               :expires_at => Time.now)) }
+
+		it 'creates a new user from github oauth information' do
+			expect { User.from_oauth(fakeauth)}.to change(User, :count).by(1)
+		end
+
+		it 'updates existing user with new data from github'
+	end
 end

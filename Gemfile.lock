@@ -227,6 +227,7 @@ DEPENDENCIES
   faker
   guard-rspec
   guard-spork
+  hashie
   jquery-rails
   less-rails
   nokogiri

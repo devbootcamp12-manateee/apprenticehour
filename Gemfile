@@ -30,6 +30,7 @@ group :test do
   gem 'nokogiri'
   gem 'capybara'
   gem 'rb-fsevent'
+  gem 'hashie'
 end
 
 
