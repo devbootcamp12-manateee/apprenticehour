@@ -8,6 +8,10 @@ gem 'rails', '3.2.8'
 gem 'pg'
 gem 'omniauth-github'
 
+gem "therubyracer"
+gem "less-rails"
+gem "twitter-bootstrap-rails"
+
 group :development, :test do
   gem 'rspec-rails'
   gem 'annotate'
