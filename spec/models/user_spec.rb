@@ -37,7 +37,7 @@ describe User do
 			mentee_meeting = FactoryGirl.create(:meeting, :mentee => user)
 			other_meeting = FactoryGirl.create(:meeting)
 
-			user.mentee_meetings.should eq mentee_meeting
+			user.mentee_meetings.should eq [mentee_meeting]
 		end
 	end
 
@@ -47,7 +47,7 @@ describe User do
 			mentor_meeting = FactoryGirl.create(:meeting, :mentor => user)
 			other_meeting = FactoryGirl.create(:meeting)
 			
-			user.mentor_meetings.should eq mentor_meeting
+			user.mentor_meetings.should eq [mentor_meeting]
 		end
 	end
 end
