@@ -65,8 +65,8 @@ describe User do
 		let(:fakeauth) { Hashie::Mash.new(:provider => 'github',
 				                              :uid => '12345',
 				                              :info => Hashie::Mash.new(:name => 'Bob',
-				                              	                        :email => 'bob@bob.com'),
-				                              :extra => Hashie::Mash.new(:gravatar_id => 'sasdad'),
+				                              	                        :email => 'bob@bob.com',
+				                              	                        :image => 'sasdad'),
 				                              :credentials => Hashie::Mash.new(:token => '1234',
 																				                               :expires_at => Time.now)) }
 
