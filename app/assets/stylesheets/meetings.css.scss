@@ -23,63 +23,69 @@ body {
   border-radius: 10px;
   box-shadow: 2px 2px 5px #777;
   height: 100px;
+  margin-left: auto;
+  margin-right: auto;
 
   + .meeting {
     margin-top: 10px;
   }
 
   .left {
-    margin-left: 15px;
+    margin-left: 18px;
   }
 
-  .status {
-    display: table;
-    height: 100px;
+  .status-actions {
+    margin-top: 22px;
+  }
 
-    p {
-      display: table-cell;
-      vertical-align: middle;
+  .topic_location {
+
+    h3 {
+      display: inline-block;
+      font-size: 22px;
+      line-height: 22px;
+      margin-bottom: 0px;
+      margin-right: 15px;
     }
-  }
-
-  .topic {
-    display: table;
-    height: 100px;
 
     p {
-      display: table-cell;
-      vertical-align: middle;
-    }
-  }
-
-  .description {
-    display: table;
-    height: 100px;
-
-    p {
-      display: table-cell;
-      vertical-align: middle;
-    }
-  }
-
-  .neighborhood {
-    display: table;
-    height: 100px;
-
-    p {
-      display: table-cell;
-      vertical-align: middle;
+      display: inline-block;
+      font-size: 14px;
+      line-height: 22px;
+      font-style: italic;
+      margin-bottom: 0px;
     }
   }
 
   .user {
-    display: table;
-    height: 100px;
+    margin-top: 8px;
+    float: right;
+    height: 90px;
+
+    .info {
+      font-size: 12px;
+      line-height: 12px;
+      font-style: italic;
+    }
 
     p {
-      display: table-cell;
-      vertical-align: middle;
+      margin: 0;
+      text-align: center;
+    }
+
+    img {
+      display: block;
+      margin: 0px auto;
+      height: 60px;
     }
   }
 
  }
+
+.message {
+
+}
+
+.hidden {
+  display: none;
+}
