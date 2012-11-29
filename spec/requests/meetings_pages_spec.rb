@@ -3,12 +3,12 @@ require 'spec_helper'
 describe 'Meetings pages' do
   
   subject { page }
-  before { visit meetings_path }
+
     
   describe 'Meeting requests' do
-    let!(:m1) { create(:meeting, :description => "foo") } }
-    let!(:m2) { create(:matched_meeting, :description => "bar") } }
-    let!(:m3) { create(:cancelled_meeting, :description => "hat") } }
+    let!(:m1) { create(:meeting, :description => "foo") }
+    let!(:m2) { create(:matched_meeting, :description => "bar") } 
+    let!(:m3) { create(:cancelled_meeting, :description => "hat") }
 
     it 'Should show all meetings with available and matched status' do
       page.should have_content(m1.description)
@@ -36,7 +36,7 @@ describe 'Meetings pages' do
     end
 
     context 'user accepts a meeting' do
-      let!(:available_meeting) { create(:meeting, :description => "foo") } }
+      let!(:available_meeting) { create(:meeting, :description => "foo") }
       before { click_button "Accept" }
       it 'shows the contact form' do
         page.should have_link("Contact Mentee")
