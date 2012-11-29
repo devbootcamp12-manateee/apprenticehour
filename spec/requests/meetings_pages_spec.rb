@@ -6,9 +6,9 @@ describe 'Meetings pages' do
   before { visit meetings_path }
     
   describe 'Meeting requests' do
-    let!(:m1) { create(:meeting, :description => "foo") } }
-    let!(:m2) { create(:matched_meeting, :description => "bar") } }
-    let!(:m3) { create(:cancelled_meeting, :description => "hat") } }
+    let!(:m1) { create(:meeting, :description => "foo") } 
+    let!(:m2) { create(:matched_meeting, :description => "bar") } 
+    let!(:m3) { create(:cancelled_meeting, :description => "hat") }
 
     it 'Should show all meetings with available and matched status' do
       page.should have_content(m1.description)
@@ -23,11 +23,11 @@ describe 'Meetings pages' do
 
     it 'shows "sign out" and username links in navigation' do
       page.should have_link("Sign Out")
-      page.should have_link(user.login)
+      page.should have_link(user.name)
     end
 
     context 'user clicks on username in navigation' do
-      before { click_link user.login }
+      before { click_link user.name }
       it 'directs to user profile page'
     end
 
@@ -36,7 +36,7 @@ describe 'Meetings pages' do
     end
 
     context 'user accepts a meeting' do
-      let!(:available_meeting) { create(:meeting, :description => "foo") } }
+      let!(:available_meeting) { create(:meeting, :description => "foo") } 
       before { click_button "Accept" }
       it 'shows the contact form' do
         page.should have_link("Contact Mentee")
@@ -100,14 +100,27 @@ describe 'Meetings pages' do
     end
 
     context 'user clicks sign out in navigation' do
-      it 'does not show request form'
-      it 'shows "sign in via github" in navigation'
+      before { click_button "Sign Out" }
+      it 'does not show request form' do
+        page.should_not have_link("Submit")
+      end
+      
+      it 'shows "sign in via github" in navigation' do
+        page.should have_link("Sign in via Github")
+      end
+
     end
   end
 
   context 'When user is not logged in' do
-    it 'shows "sign in via github" in navigation'
-    it 'does not show request form'
+    it 'shows "sign in via github" in navigation' do
+      page.should have_link("Sign in via Github")
+    end
+
+    it 'does not show request form' do
+      page.should_not have_link("Submit")
+    end
+
     it 'shows the blurb on how it works'
   end
 end

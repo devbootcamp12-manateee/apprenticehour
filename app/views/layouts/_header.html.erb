@@ -5,11 +5,14 @@
     <ul class="nav">
       <li><%= link_to 'How It Works', '#'%></li>
     </ul>
+
+
     <ul class="nav pull-right">
       <% if signed_in? %>
-        <li><%= link_to "Hello", '#' %></li>
+        <li><%= link_to current_user.name, '#' %></li>
+        <li><%= link_to 'Sign Out', signout_path %></li>
       <% else %>
-        <li><%= link_to 'Sign In via GitHub', '/auth/github' %></li>
+        <li><%= link_to 'Sign In via Github', '/auth/github' %></li>
       <% end %>
     </ul>
   </div>
