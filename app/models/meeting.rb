@@ -33,4 +33,12 @@ class Meeting < ActiveRecord::Base
   scope :matched, where(:status => 'matched')
   scope :sort_by_created_desc, order("created_at DESC")
   scope :filter_by_topic, lambda { |topic| where("topic_id = ?", topic.id) }
+
+  def completable_for?(user)
+    status == 'matched' && (mentor == user || mentee == user)
+  end
+
+  def available_for?(user)
+    status == 'available' && mentee != user
+  end 
 end
