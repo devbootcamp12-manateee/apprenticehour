@@ -101,12 +101,12 @@ describe 'Meetings pages' do
 
     context 'user clicks sign out in navigation' do
       it 'does not show request form'
-      it 'shows sign in in navigation'
+      it 'shows "sign in via github" in navigation'
     end
   end
 
   context 'When user is not logged in' do
-    it 'shows sign in in navigation'
+    it 'shows "sign in via github" in navigation'
     it 'does not show request form'
     it 'shows the blurb on how it works'
   end
