@@ -7,7 +7,7 @@ FactoryGirl.define do
     neighborhood "mission"
     status "available"
 
-    factory :canceled_meeting do
+    factory :cancelled_meeting do
       status "canceled"
     end
 
