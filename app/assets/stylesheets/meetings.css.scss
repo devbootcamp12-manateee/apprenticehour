@@ -1,0 +1,85 @@
+body {
+  background: #FAFAFA;
+}
+
+.available {
+  background-color: #BDFCC9;
+}
+
+.matched {
+  background-color: #FCFFF8;
+}
+
+.completed {
+  background-color: #D1EEEE;
+}
+
+.cancelled {
+  background-color: #F00;
+}
+
+.meeting {
+  border: 1px solid black;
+  border-radius: 10px;
+  box-shadow: 2px 2px 5px #777;
+  height: 100px;
+
+  + .meeting {
+    margin-top: 10px;
+  }
+
+  .left {
+    margin-left: 15px;
+  }
+
+  .status {
+    display: table;
+    height: 100px;
+
+    p {
+      display: table-cell;
+      vertical-align: middle;
+    }
+  }
+
+  .topic {
+    display: table;
+    height: 100px;
+
+    p {
+      display: table-cell;
+      vertical-align: middle;
+    }
+  }
+
+  .description {
+    display: table;
+    height: 100px;
+
+    p {
+      display: table-cell;
+      vertical-align: middle;
+    }
+  }
+
+  .neighborhood {
+    display: table;
+    height: 100px;
+
+    p {
+      display: table-cell;
+      vertical-align: middle;
+    }
+  }
+
+  .user {
+    display: table;
+    height: 100px;
+
+    p {
+      display: table-cell;
+      vertical-align: middle;
+    }
+  }
+
+ }

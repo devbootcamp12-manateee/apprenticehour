@@ -1,12 +1,17 @@
 <footer class="footer">
-  <small>
-    <%= "&#169; #{Time.now.year}" %>
-  </small>
-  <nav>
-    <ul>
-      <li><%= link_to 'How It Works', '#'%></li>
-      <li><%= link_to "About",   '#' %></li>
-      <li><%= link_to "Contact", '#' %></li>
-    </ul>
-  </nav>
+  <hr>
+  <div class='container'>
+    <div class='row'>
+      <div class='span12'>
+        <small>
+          &#169; <%= Time.now.year %>
+        </small>
+        <ul>
+          <li><%= link_to 'How It Works', '#'%></li>
+          <li><%= link_to "About",   '#' %></li>
+          <li><%= link_to "Contact", '#' %></li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </footer>

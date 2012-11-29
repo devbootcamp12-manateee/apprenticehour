@@ -1,0 +1,24 @@
+<div class="row meeting <%= meeting.status %>">
+  <div class='vertical_align'>
+    <div class='span2 left status'>
+      <p><%= meeting.status %></p>
+    </div>
+    <div class='span2 topic'>
+      <p><%= meeting.topic.description %></p>
+    </div>
+    <div class='span4 description'>
+      <p><%= meeting.description %></p>
+    </div>
+    <div class='span2 neighborhood'>
+      <p><%= meeting.neighborhood %></p>
+    </div>
+    <div class='span2 user'>
+      <p><%= meeting.mentee.name %>
+      <%= meeting.mentor.name %></p>
+    </div>
+  </div>
+
+  <div class="message hidden">
+    <textarea rows="5" cols="50" style="resize:none;">Hi, let's talk!</textarea>
+  </div>
+</div>
