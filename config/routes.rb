@@ -4,4 +4,6 @@ Manatee::Application.routes.draw do
   match 'signout', to: 'sessions#destroy', as: 'signout'
 
   root :to => 'meetings#index'
+
+  resources :meetings, only: [:index, :create]
 end
