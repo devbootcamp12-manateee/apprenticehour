@@ -10,7 +10,7 @@
       <div class="action">
         <% if signed_in? %>
           <% if meeting.available_for?(current_user) %>
-            <%= button_to "Accept", nil, class: 'btn brn-large btn-info' %>
+            <%= button_to "Accept", nil, :class => 'btn brn-large btn-info' %>
           <% end %>
           <% if meeting.mentee == current_user %>
             <%= button_to "Cancel" %>

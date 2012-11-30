@@ -89,3 +89,32 @@ body {
 .hidden {
   display: none;
 }
+
+.form {
+
+  form {
+    margin-top: 10px;
+
+    .span1andahalf {
+      width: 90px;
+    }
+
+    .select {
+      width: 150px;
+      margin-right: 25px;
+    }
+
+    .description {
+      width: 690px;
+    }
+
+    .submit {
+      margin-top: 40px;
+
+    }
+
+    .inputError {
+      border: 1px solid red;
+    }
+  } 
+}
