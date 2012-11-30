@@ -1,19 +1,24 @@
 FactoryGirl.define do
   factory :meeting do
-    mentee_id { create(:user) }
+    mentee { create(:user) }
     topic
-    description "I need help with lambdas"
-    neighborhood "mission"
+    description { Faker::Lorem.sentence }
+    neighborhood { Faker::Lorem.word }
     status "available"
 
-    factory :cancelled_meeting do
-      status "canceled"
-      mentor_id { create(:user) }
+    trait :with_mentor do
+      mentor { create(:user) }
     end
 
-    factory :matched_meeting do
-      status "matched"
-      mentor_id { create(:user) }
+    trait :canceled do
+      status "canceled"
     end
+
+    trait :matched do
+      status "matched"
+    end
+
+    factory :cancelled_meeting, :traits => [:with_mentor, :canceled]
+    factory :matched_meeting, :traits => [:with_mentor, :matched]
   end
 end

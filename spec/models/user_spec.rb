@@ -22,8 +22,7 @@ describe User do
 	
 	it { should validate_presence_of :uid }
 	it { should validate_presence_of :provider }
-	it { should validate_presence_of :name }
-	it { should validate_presence_of :email }
+	it { should validate_uniqueness_of :email }
 	it { should validate_presence_of :gravatar }
 	
 	it { should validate_uniqueness_of :email }
@@ -43,9 +42,9 @@ describe User do
 
 	describe '#mentee_meetings' do
 		it 'returns a list of meetings for which the user is the mentee' do
-			user = FactoryGirl.create(:user)
-			mentee_meeting = FactoryGirl.create(:meeting, :mentee => user)
-			other_meeting = FactoryGirl.create(:meeting)
+			user = create(:user)
+			mentee_meeting = create(:meeting, :mentee => user)
+			other_meeting  = create(:meeting)
 
 			user.mentee_meetings.should eq [mentee_meeting]
 		end

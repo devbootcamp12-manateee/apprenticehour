@@ -20,10 +20,13 @@ class User < ActiveRecord::Base
   validates :email,    :uniqueness => true
   validates :gravatar, :presence => true
 
-  has_many :mentor_meetings, :class_name => 'Meeting',
-    :foreign_key => 'mentor_id'
-  has_many :mentee_meetings, :class_name => 'Meeting',
-    :foreign_key => 'mentee_id'
+  has_many :mentor_meetings,
+           :class_name => 'Meeting',
+           :foreign_key => 'mentor_id'
+
+  has_many :mentee_meetings,
+           :class_name => 'Meeting',
+           :foreign_key => 'mentee_id'
 
   before_save :create_remember_token
 
