@@ -22,7 +22,7 @@ group :development, :test do
   gem 'guard-spork'
   gem 'spork'
   gem 'shoulda-matchers'
-  gem 'database_cleaner'
+  
   gem 'faker'
 end
 
@@ -31,6 +31,7 @@ group :test do
   gem 'capybara'
   gem 'rb-fsevent'
   gem 'hashie'
+  gem 'database_cleaner'
 end
 
 group :development do
