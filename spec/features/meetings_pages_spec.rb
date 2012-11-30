@@ -12,8 +12,6 @@ describe 'Meetings pages', :js => true do
     before { visit meetings_path }
 
     it 'Should show all meetings with available and matched status' do
-      visit meetings_path
-      debugger
       page.should have_content(m1.description)
       page.should have_content(m2.description)
       page.should_not have_content(m3.description)
@@ -21,11 +19,9 @@ describe 'Meetings pages', :js => true do
   end
 
   context 'When user is logged in' do
-    before do
-      click_link "Sign in via Github"
-    end
-
     it 'shows "sign out" and username links in navigation' do
+      visit meetings_path
+      click_link "Sign in via Github"
       page.should have_link("Sign Out")
       page.should have_link("Bob")
     end
