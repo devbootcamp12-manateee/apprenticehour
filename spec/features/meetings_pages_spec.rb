@@ -21,7 +21,9 @@ describe 'Meetings pages', :js => true do
   end
 
   context 'When user is logged in' do
-    before { click_link "Sign in via Github" }
+    before do
+      click_link "Sign in via Github"
+    end
 
     it 'shows "sign out" and username links in navigation' do
       page.should have_link("Sign Out")

@@ -1,12 +1,13 @@
 <div class='row meeting form'>
-<%= form_for @meeting = Meeting.new do |f| %>
+<%= form_for @meeting = Meeting.new, :remote => true do |f| %>
   <div class='span1andahalf'>
     <h4>Request </h4><h4>Meeting</h4>
   </div>
   <div class='span9'>
-    <%= f.select :topic, Topic.all.map(&:description), { :prompt => 'Select a topic' }, :class => 'select' %>
+    <%= f.select :topic_id, Topic.all.collect {|p| [ p.description, p.id ] }, { :prompt => 'Select a topic' } %>
     <%= f.text_field :neighborhood, :placeholder => 'Where would you like to meet?' %>
     <%= f.text_field :description, :class => 'description', :placeholder => 'Describe what you want to talk about' %>
+    <%= f.hidden_field :status, :value => "available" %>
   </div>
   <div class='span1 submit'>
     <%= f.submit 'Submit', :class => 'btn btn-primary', :id => 'new_meeting_submit' %>
