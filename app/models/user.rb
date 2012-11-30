@@ -17,9 +17,7 @@
 class User < ActiveRecord::Base
   validates :uid,      :presence => true
   validates :provider, :presence => true
-  validates :name,     :presence => true
-  validates :email,    :presence => true,
-                       :uniqueness => true
+  validates :email,    :uniqueness => true
   validates :gravatar, :presence => true
 
   has_many :mentor_meetings, :class_name => 'Meeting',
