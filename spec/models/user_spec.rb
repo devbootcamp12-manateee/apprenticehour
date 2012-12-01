@@ -21,8 +21,8 @@ describe User do
 	it { should have_many :mentee_meetings }
 	
 	it { should validate_presence_of :uid }
+	it { should validate_presence_of :email }
 	it { should validate_presence_of :provider }
-	it { should validate_uniqueness_of :email }
 	it { should validate_presence_of :gravatar }
 	
 	it { should validate_uniqueness_of :email }
@@ -30,7 +30,6 @@ describe User do
 	it { should_not allow_mass_assignment_of :uid }
 	it { should_not allow_mass_assignment_of :provider }
 	it { should_not allow_mass_assignment_of :name }
-	it { should_not allow_mass_assignment_of :email }
 	it { should_not allow_mass_assignment_of :gravatar }
 
 	describe 'remember_token' do

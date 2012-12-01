@@ -2,7 +2,7 @@
     <div class='span2 left status-actions'>
       <div class="status"
         <% if meeting.completable_for?(current_user) %>
-            <%= button_to "Complete" %>
+          <%= button_to "Complete" %>
         <% else %>
           <p><%= meeting.status %></p>
         <% end %>

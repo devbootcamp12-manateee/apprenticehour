@@ -1,6 +1,8 @@
 class MeetingsController < ApplicationController
+  # respond_to :json
   def index
     @meetings = Meeting.not_cancelled
+    # respond_with @meetings
   end
 
   def create

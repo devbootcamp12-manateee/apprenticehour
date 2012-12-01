@@ -1,6 +1,6 @@
 var Meeting = {
   init: function() {
-    $(".action").on("click", "button", this.showForm);
+    $('.action').on('click', 'button', this.showForm);
     $('.form input[type="text"]').blur(this.validateFields);
     $('.form form').on('submit', this.checkNewMeeting);
   },
@@ -37,13 +37,11 @@ var Meeting = {
   },
 
   checkNewMeeting: function(event) {
-    // console.log(this);
     topic = $(this).children().eq(2).children()[0];
     neighborhood = $(this).children().eq(2).children()[1];
     description = $(this).children().eq(2).children()[2];
     if ((neighborhood.value === '') || (description.value === '') || 
       (topic.value === '')) {
-      console.log(this);
       event.preventDefault();
       $(neighborhood).addClass('inputError');
       $(description).addClass('inputError');

@@ -36,7 +36,7 @@ class Meeting < ActiveRecord::Base
   scope :filter_by_topic, lambda { |topic| where("topic_id = ?", topic.id) }
 
   def completable_for?(user)
-    status == 'matched' && (mentor == user || mentee == user)
+    !user.nil? && status == 'matched' && (mentor == user || mentee == user)
   end
 
   def available_for?(user)

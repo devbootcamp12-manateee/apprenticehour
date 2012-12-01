@@ -65,11 +65,11 @@ Spork.prefork do
 
   OmniAuth.config.mock_auth[:github] = Hashie::Mash.new({:provider => 'github',
          :uid => '12345',
-        :info => Hashie::Mash.new(:name => 'Bob',
-                                  :email => 'bob@bob.com',
-                                  :image => 'sasdad'),
-                                  :credentials => Hashie::Mash.new(:token => '1234',
-                                                                   :expires_at => Time.now)})
+         :info => Hashie::Mash.new(:name => 'Bob',
+                                   :email => 'bob@bob.com',
+                                   :image => 'sasdad'),
+                                   :credentials => Hashie::Mash.new(:token => '1234',
+                                                                    :expires_at => Time.now)})
 end
 
 Spork.each_run do

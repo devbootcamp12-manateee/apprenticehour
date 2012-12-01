@@ -13,12 +13,15 @@
 #  remember_token   :string(255)
 #
 
-#
+
 class User < ActiveRecord::Base
   validates :uid,      :presence => true
   validates :provider, :presence => true
-  validates :email,    :uniqueness => true
+  validates :email,    :presence => true,
+                       :uniqueness => true
   validates :gravatar, :presence => true
+
+  attr_accessible :email
 
   has_many :mentor_meetings,
            :class_name => 'Meeting',
@@ -31,12 +34,11 @@ class User < ActiveRecord::Base
   before_save :create_remember_token
 
   def self.from_oauth(auth)
-    # logger.info auth
     where(auth.slice(:provider, :uid)).first_or_initialize.tap do |user|
       user.provider         = auth.provider
       user.uid              = auth.uid
       user.name             = auth.info.name
-      user.email            = auth.info.email
+      user.email            = auth.info.email || user.email || user.name
       user.gravatar         = auth.info.image
       user.oauth_token      = auth.credentials.token
       user.oauth_expires_at = Time.at(auth.credentials.expires_at) if auth.credentials.expires_at
@@ -44,9 +46,12 @@ class User < ActiveRecord::Base
     end
   end
 
+  def meetings
+    Meeting.where('mentor_id = ? or mentee_id = ?', id, id)
+  end
+
 private
   def create_remember_token
     self.remember_token = SecureRandom.urlsafe_base64
   end
-
 end
