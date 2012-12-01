@@ -17,6 +17,13 @@ class MeetingsController < ApplicationController
 
   def update
     @meeting = Meeting.find(params[:id])
-    @meeting.update_attribute(:status, params[:status])
+
+    respond_to do |format|
+      if @meeting.update_attributes(:status => params[:status], :mentor_id => current_user.id)
+        format.js
+      else
+        render 'index'
+      end
+    end
   end
 end

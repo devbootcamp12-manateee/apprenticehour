@@ -1,6 +1,6 @@
-<div class="row meeting <%= meeting.status %>">
+<div class="row meeting <%= meeting.status %>", id="<%= dom_id(meeting) %>">
     <div class='span2 left status-actions'>
-      <div class="status"
+      <div class="status">
         <% if meeting.completable_for?(current_user) %>
             <%= button_to "Complete" %>
         <% else %>
@@ -10,13 +10,21 @@
       <div class="action">
         <% if signed_in? %>
           <% if meeting.available_for?(current_user) %>
-            <%= button_to "Accept", nil, :class => 'btn brn-large btn-info' %>
+            <%= form_tag(meeting_path(meeting.id), :remote => "true", :method => "Put") do %>
+              <%= hidden_field_tag(:status, "matched") %>
+              <%= submit_tag("Accept", :class => 'btn brn-large btn-info') %>
+            <% end %>
           <% end %>
-          <% if meeting.mentee == current_user %>
-            <%= button_to "Cancel" %>
+          <% if meeting.cancelable_for?(current_user)%>
+           <%= form_tag(meeting_path(meeting.id), :remote => "true", :method => "Put") do %>
+              <%= hidden_field_tag(:status, "canceled") %>
+              <%= submit_tag("Cancel", :class => 'btn brn-large btn-info') %>
+            <% end %>
           <% end %>
+      <!--     <% if meeting.completable_for?(current_user)%>
+            <%= button_to "We Met!", :action => "update", :remote => "true", :class => 'btn brn-large btn-info' %>
+          <% end %> -->
         <% end %>
-<!--        <%= button_to "Cancel" %> -->
       </div>
     </div>
     <div class='span4'>

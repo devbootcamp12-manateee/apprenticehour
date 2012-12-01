@@ -14,7 +14,7 @@
 #
 
 class Meeting < ActiveRecord::Base
-  attr_accessible :description, :neighborhood, :status, :topic_id
+  attr_accessible :description, :neighborhood, :status, :topic_id, :mentor_id
 
   belongs_to :mentee, :class_name => "User"
   belongs_to :mentor, :class_name => "User"
@@ -40,5 +40,11 @@ class Meeting < ActiveRecord::Base
 
   def available_for?(user)
     status == 'available' && mentee != user
-  end 
+  end
+
+  def cancelable_for?(user)
+    status == 'matched' || status == 'available' && mentee == user
+  end
+
+
 end
