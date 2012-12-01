@@ -1,53 +1,56 @@
 <div class="row meeting <%= meeting.status %>", id="<%= dom_id(meeting) %>">
-    <div class='span2 left status-actions'>
-      <div class="status">
-        <% if meeting.completable_for?(current_user) %>
-            <%= button_to "Complete" %>
-        <% else %>
-          <p><%= meeting.status %></p>
-        <% end %>
-      </div>
-      <div class="action">
-        <% if signed_in? %>
-          <% if meeting.available_for?(current_user) %>
-            <%= form_tag(meeting_path(meeting.id), :remote => "true", :method => "Put") do %>
-              <%= hidden_field_tag(:status, "matched") %>
-              <%= submit_tag("Accept", :class => 'btn brn-large btn-info') %>
-            <% end %>
+  <div class='span2 left status-actions'>
+    <div class="status">
+      <% if meeting.completable_for?(current_user) %>
+         <%= form_tag(meeting_path(meeting.id), :remote => "true", :method => "Put") do %>
+            <%= hidden_field_tag(:status, "completed") %>
+            <%= submit_tag("Complete", :class => 'btn btn-mini btn-info') %>
           <% end %>
-          <% if meeting.cancelable_for?(current_user)%>
-           <%= form_tag(meeting_path(meeting.id), :remote => "true", :method => "Put") do %>
-              <%= hidden_field_tag(:status, "canceled") %>
-              <%= submit_tag("Cancel", :class => 'btn brn-large btn-info') %>
-            <% end %>
-          <% end %>
-      <!--     <% if meeting.completable_for?(current_user)%>
-            <%= button_to "We Met!", :action => "update", :remote => "true", :class => 'btn brn-large btn-info' %>
-          <% end %> -->
-        <% end %>
-      </div>
-    </div>
-    <div class='span4'>
-      <span class='topic_location'>
-        <h3><%= meeting.topic.description %></h3>
-        <p>@ <%= meeting.neighborhood %></p>
-      </span>
-      <span class='description'>
-        <p><%= meeting.description %></p>
-      </span>
-    </div>
-    <div class='span2 user'>
-      <p class='info'>Mentee:</p>
-      <%= image_tag meeting.mentee.gravatar %>
-      <p><%= meeting.mentee.name %></p>
-    </div>
-    <div class='span2 user'>
-      <p class='info'>Mentor:</p>
-      <% if meeting.mentor %>
-        <%= image_tag meeting.mentor.gravatar %>
-        <p><%= meeting.mentor.name %></p>
+      <% else %>
+        <p><%= meeting.status %></p>
       <% end %>
     </div>
+    <div class="action">
+      <% if signed_in? %>
+        <% if meeting.available_for?(current_user) %>
+          <%= form_tag(meeting_path(meeting.id), :remote => "true", :method => "Put") do %>
+            <%= hidden_field_tag(:status, "matched") %>
+            <%= submit_tag("Accept", :class => 'btn btn-mini btn-info') %>
+          <% end %>
+        <% end %>
+        <% if meeting.cancelable_for?(current_user)%>
+         <%= form_tag(meeting_path(meeting.id), :remote => "true", :method => "Put") do %>
+            <%= hidden_field_tag(:status, "cancelled") %>
+            <%= submit_tag("Cancel", :class => 'btn btn-mini btn-info') %>
+          <% end %>
+        <% end %>
+    <!--     <% if meeting.completable_for?(current_user)%>
+          <%= button_to "We Met!", :action => "update", :remote => "true", :class => 'btn brn-large btn-info' %>
+        <% end %> -->
+      <% end %>
+    </div>
+  </div>
+  <div class='span4'>
+    <span class='topic_location'>
+      <h3><%= meeting.topic.description %></h3>
+      <p>@ <%= meeting.neighborhood %></p>
+    </span>
+    <span class='description'>
+      <p><%= meeting.description %></p>
+    </span>
+  </div>
+  <div class='span2 user'>
+    <p class='info'>Mentee:</p>
+    <%= image_tag meeting.mentee.gravatar %>
+    <p><%= meeting.mentee.name %></p>
+  </div>
+  <div class='span2 user'>
+    <p class='info'>Mentor:</p>
+    <% if meeting.mentor %>
+      <%= image_tag meeting.mentor.gravatar %>
+      <p><%= meeting.mentor.name %></p>
+    <% end %>
+  </div>
   <div class="message hidden">
     <textarea rows="5" cols="50" style="resize:none;">Hi, let's talk!</textarea>
   </div>
