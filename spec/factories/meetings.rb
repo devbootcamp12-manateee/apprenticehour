@@ -10,15 +10,15 @@ FactoryGirl.define do
       mentor { create(:user) }
     end
 
-    trait :canceled do
-      status "canceled"
+    trait :cancelled do
+      status "cancelled"
     end
 
     trait :matched do
       status "matched"
     end
 
-    factory :cancelled_meeting, :traits => [:with_mentor, :canceled]
+    factory :cancelled_meeting, :traits => [:with_mentor, :cancelled]
     factory :matched_meeting, :traits => [:with_mentor, :matched]
   end
 end

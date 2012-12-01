@@ -1,0 +1,13 @@
+<div class='container'>
+  <% if flash[:alert] %>
+    <div class="alert">
+      <%= content_tag :p, flash[:alert] %>
+    </div>
+  <% end %>
+
+  <%= form_for @user, :html => { :class => 'form-inline' } do |f| %>
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+    <%= f.submit 'Submit', :class => 'btn btn-primary' %>
+  <% end %>
+</div>

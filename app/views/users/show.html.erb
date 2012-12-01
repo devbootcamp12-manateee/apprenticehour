@@ -1,0 +1,10 @@
+<div class='container'>
+  <div id='user'>
+    <%= image_tag @user.gravatar %>
+    <h1><%= @user.name %></h1>
+    <p><%= @user.email %></p>
+  </div>
+  <div id='meetings'>
+    <%= render @meetings %>
+  </div>  
+</div>

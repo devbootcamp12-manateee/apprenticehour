@@ -31,11 +31,12 @@ class Meeting < ActiveRecord::Base
 
   scope :available, where(:status => 'available')
   scope :matched, where(:status => 'matched')
+  scope :not_cancelled, where('status != ?', 'cancelled')
   scope :sort_by_created_desc, order("created_at DESC")
   scope :filter_by_topic, lambda { |topic| where("topic_id = ?", topic.id) }
 
   def completable_for?(user)
-    status == 'matched' && (mentor == user || mentee == user)
+    !user.nil? && status == 'matched' && (mentor == user || mentee == user)
   end
 
   def available_for?(user)

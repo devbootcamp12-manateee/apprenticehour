@@ -2,10 +2,10 @@
   <div class='span2 left status-actions'>
     <div class="status">
       <% if meeting.completable_for?(current_user) %>
-         <%= form_tag(meeting_path(meeting.id), :remote => "true", :method => "Put") do %>
+        <%= form_tag(meeting_path(meeting.id), :remote => "true", :method => "Put") do %>
             <%= hidden_field_tag(:status, "completed") %>
             <%= submit_tag("Complete", :class => 'btn btn-mini btn-info') %>
-          <% end %>
+        <% end %>
       <% else %>
         <p><%= meeting.status %></p>
       <% end %>
