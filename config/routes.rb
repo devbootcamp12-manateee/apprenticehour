@@ -5,6 +5,6 @@ Manatee::Application.routes.draw do
 
   root :to => 'meetings#index'
 
-  resources :meetings, :only => [:index, :create]
+  resources :meetings, :only => [:index, :create, :update]
   resources :users, :only => [:show, :edit, :update]
 end
