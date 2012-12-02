@@ -4,7 +4,7 @@
       <% if meeting.completable_for?(current_user) %>
         <%= form_tag(meeting_path(meeting.id), :remote => "true", :method => "Put") do %>
             <%= hidden_field_tag(:status, "completed") %>
-            <%= submit_tag("Complete", :class => 'btn btn-mini btn-info') %>
+            <%= submit_tag("We Met!", :class => 'btn btn-mini btn-info') %>
         <% end %>
       <% else %>
         <p><%= meeting.status %></p>
@@ -24,9 +24,6 @@
             <%= submit_tag("Cancel", :class => 'btn btn-mini btn-info') %>
           <% end %>
         <% end %>
-    <!--     <% if meeting.completable_for?(current_user)%>
-          <%= button_to "We Met!", :action => "update", :remote => "true", :class => 'btn brn-large btn-info' %>
-        <% end %> -->
       <% end %>
     </div>
   </div>

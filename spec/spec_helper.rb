@@ -67,7 +67,7 @@ Spork.prefork do
          :uid => '12345',
          :info => Hashie::Mash.new(:name => 'Bob',
                                    :email => 'bob@bob.com',
-                                   :image => 'sasdad'),
+                                   :image => 'https://secure.gravatar.com/avatar/e466e786cb4fd0005ad12c648f6dc50f?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png'),
                                    :credentials => Hashie::Mash.new(:token => '1234',
                                                                     :expires_at => Time.now)})
 end
