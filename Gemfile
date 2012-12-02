@@ -30,6 +30,7 @@ end
 group :test do
   gem 'nokogiri'
   gem 'capybara'
+  gem 'launchy'
   gem 'rb-fsevent'
   gem 'hashie'
   gem 'database_cleaner'

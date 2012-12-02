@@ -19,11 +19,13 @@ describe 'Meetings pages' do
   end
 
   context 'When user is logged in' do
-    before { visit meetings_path }
-
-    it 'shows "sign out" and username links in navigation' do
+    before do
+      visit meetings_path 
       # click_link uses fake omniauth data in spec_helper.rb file
       click_link "Sign in via Github"
+    end
+
+    it 'shows "sign out" and username links in navigation' do
       page.should have_link("Sign Out")
       page.should have_link("Bob")
     end
@@ -37,15 +39,20 @@ describe 'Meetings pages' do
       page.should have_button("Submit")
     end
 
-    context 'user accepts a meeting' do
+    context 'user accepts a meeting', :js => true do
       let!(:available_meeting) { create(:meeting, :description => "foo") }
-      before { click_button "Accept" }
+      before do
+        visit meetings_path
+        click_button "Accept"
+      end
+
       it 'shows the contact form' do
         page.should have_link("Contact Mentee")
       end
 
-      it 'changes the status of the meeting to matched' do
-        page.should have_content("Matched")
+      it 'changes the status of the meeting to matched for other users' do
+        click_link "Sign Out"
+        page.should have_content("matched")
       end
 
       context 'user clicks submit button' do
@@ -59,52 +66,59 @@ describe 'Meetings pages' do
     end
 
     context 'user has a matched meeting' do
-      let!(:user) { create(:user) }
-      let!(:m4) { create(:matched_meeting, :mentee => user) }
+      let!(:m4) { create(:matched_meeting, :mentee_id => 1) }
+      before { visit meetings_path }
 
       it 'shows cancel and "we met" buttons' do
-        page.should have_link("Cancel")
-        page.should have_link("We met!")
+        page.should have_button("Cancel")
+        page.should have_button("We Met!")
       end
     end
 
     context 'user has an available meeting' do
-      let!(:user) { create(:user) }
-      let!(:m4) { create(:meeting, :mentee => user) }
+      let!(:m4) { create(:meeting, :mentee_id => 1) }
+      before { visit meetings_path }
 
       it 'shows cancel buttons' do
-        page.should have_link("Cancel")
+        page.should have_button("Cancel")
       end
 
       it 'shows status as waiting' do
-        page.should have_content("Waiting...")
+        page.should have_content("available")
       end
 
-      context 'user clicks cancel button' do
+      context 'user clicks cancel button', :js => true do
         before { click_button "Cancel" }
-        it "hides the meeting" do
-          page.should_not have_content(m4.description)
+
+        it "changes the status to cancelled" do
+          page.should have_content('cancelled')
         end
       end
 
-      context 'user clicks "we met" button' do
-        before { click_button "We met!" }
-        it 'hides the meeting' do
-          page.should_not have_content(m4.description)
+      context 'user clicks "we met" button', :js => true do
+        let!(:m5) { create(:matched_meeting, :mentee_id => 1) }
+        before do
+          visit meetings_path
+          click_button "We Met!"
+        end
+
+        it 'shows status as completed' do
+          page.should have_content('completed')
         end
       end
     end
 
     context 'user clicks submit button' do
+      #TODO: this will fail until we can fill out the meeting request form
       it 'creates a new meeting' do
         expect { click_button "Submit" }.to change(Meeting, :count).by(1)
       end
     end
 
     context 'user clicks sign out in navigation' do
-      before { click_button "Sign Out" }
+      before { click_link "Sign Out" }
       it 'does not show request form' do
-        page.should_not have_link("Submit")
+        page.should_not have_button("Submit")
       end
       
       it 'shows "sign in via github" in navigation' do

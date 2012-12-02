@@ -99,6 +99,8 @@ GEM
     json (1.7.5)
     jwt (0.1.5)
       multi_json (>= 1.0)
+    launchy (2.1.2)
+      addressable (~> 2.3)
     less (2.2.2)
       commonjs (~> 0.2.6)
     less-rails (2.2.6)
@@ -247,6 +249,7 @@ DEPENDENCIES
   guard-spork
   hashie
   jquery-rails
+  launchy
   less-rails
   nokogiri
   omniauth-github

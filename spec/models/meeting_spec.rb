@@ -29,7 +29,6 @@ describe Meeting do
   it { should ensure_length_of(:description).is_at_most(200) }
   it { should ensure_length_of(:neighborhood).is_at_most(64) } # maybe not?
 
-  it { should_not allow_mass_assignment_of :mentor_id }
   it { should_not allow_mass_assignment_of :mentee_id }
 
   describe 'scopes' do
