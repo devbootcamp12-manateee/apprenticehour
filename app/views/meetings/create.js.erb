@@ -1,0 +1,5 @@
+/* prepend new meeting into meetings index page */
+var form = $('.row.meeting.form')
+
+$('<%=j(render(@meeting)) %>').insertAfter(form);
+$('.row.meeting.form #new_meeting')[0].reset()
