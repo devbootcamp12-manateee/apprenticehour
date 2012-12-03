@@ -24,7 +24,7 @@ class MeetingsController < ApplicationController
     @meeting.status = params[:status]
 
     respond_to do |format|
-      if @meeting.save
+      if @meeting.save && @meeting.status != "matched"
         format.js
       else
         render 'index'
