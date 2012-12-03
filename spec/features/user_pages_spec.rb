@@ -9,6 +9,7 @@ describe 'Profile page' do
     @user = User.find_by_email('bob@bob.com')
     @m2 = create(:matched_meeting, :mentee => @user)
     @m3 = create(:meeting, :mentee => @user)
+    @m4 = create(:cancelled_meeting, :mentee => @user)
     visit user_path(@user)
   end
 
@@ -16,6 +17,7 @@ describe 'Profile page' do
     page.should have_content(@m2.description)
     page.should have_content(@m3.description)
     page.should_not have_content(@m1.description)
+    page.should_not have_content(@m4.description)
   end
 
   # unsure why spec isn't working. should pass (Code works as described)

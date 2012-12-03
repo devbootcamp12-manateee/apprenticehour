@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_filter :correct_user?, :only => [:edit, :update]
   def show
     @user = User.find(params[:id])
-    @meetings = @user.meetings
+    @meetings = @user.meetings.not_cancelled
   end
 
   def edit
