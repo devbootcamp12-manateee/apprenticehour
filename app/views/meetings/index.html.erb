@@ -1,4 +1,8 @@
 <div class='container' id='meetings'>
-  <%= render 'form' %>
+  <% if signed_in? %>
+    <%= render 'form' %>
+  <% else %>
+    <%= render 'static_pages/how_it_works' %>
+  <% end %>
   <%= render @meetings %>
 </div>
