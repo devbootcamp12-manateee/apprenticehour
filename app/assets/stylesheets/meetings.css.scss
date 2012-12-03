@@ -22,7 +22,7 @@ body {
   border: 1px solid black;
   border-radius: 10px;
   box-shadow: 2px 2px 5px #777;
-  height: 100px;
+  height: 130px;
   margin-left: auto;
   margin-right: auto;
 
@@ -78,18 +78,47 @@ body {
     img {
       display: block;
       margin: 0px auto;
-      height: 60px;
+      height: 70px;
     }
   }
-
  }
 
-.message {
+.meeting.meeting-with-form {
+  height: 250px;
 
+  textarea {
+    height: 80px;
+    width: 750px;
+    margin-left: 20px;
+    margin-top: 20px;
+  }
+
+  .message {
+    margin-top: 20px;
+
+    button {
+      margin-bottom: 15px;
+
+    }
+
+    span {
+      float: right;
+      margin-top: 30px;
+      margin-right: 25px;
+    }
+
+    ul {
+      list-style-type: none;
+    }
+  }
 }
 
 .hidden {
   display: none;
+}
+
+.description {
+  height: 80px;
 }
 
 .form {
