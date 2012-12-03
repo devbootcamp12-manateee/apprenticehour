@@ -15,6 +15,7 @@
 
 class Meeting < ActiveRecord::Base
   attr_accessible :description, :neighborhood, :status, :topic_id, :mentor_id
+  # statuses: available, accepted, matched, completed, cancelled
 
   belongs_to :mentee, :class_name => "User"
   belongs_to :mentor, :class_name => "User"
@@ -29,23 +30,38 @@ class Meeting < ActiveRecord::Base
     :presence => true,
     :length => { maximum: 64 }
 
-  scope :available, where(:status => 'available')
-  scope :matched, where(:status => 'matched')
+  scope :available,     where(:status => 'available')
+  scope :matched,       where(:status => 'matched')
+  scope :accepted,      where(:status => 'accepted')
   scope :not_cancelled, where('status != ?', 'cancelled')
+
   scope :sort_by_created_desc, order("created_at DESC")
+  scope :sort_by_status,       order("CASE WHEN (status = 'available') \
+    THEN 1 WHEN (status = 'accepted') THEN 2 ELSE 3 END ASC")
+  
   scope :filter_by_topic, lambda { |topic| where("topic_id = ?", topic.id) }
 
+  def self.expired_acceptance
+    accepted.where('updated_at < ?', 10.minutes.ago)
+  end
+
+  def self.update_accepted_meetings
+    Meeting.expired_acceptance.each(&:make_available)
+  end
+
   def completable_for?(user)
-    !user.nil? && status == 'matched' && (mentor == user || mentee == user)
+    status == 'matched' && (mentor == user || mentee == user)
   end
 
   def available_for?(user)
     status == 'available' && mentee != user
   end
 
-  def cancelable_for?(user)
-    status == 'matched' || status == 'available' && mentee == user
+  def cancellable_for?(user)
+    status != 'completed' && status != 'cancelled' && mentee == user
   end
 
-
+  def make_available
+    update_attribute(:status, 'available')
+  end
 end

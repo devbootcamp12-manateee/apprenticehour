@@ -14,11 +14,11 @@
       <% if signed_in? %>
         <% if meeting.available_for?(current_user) %>
           <%= form_tag(meeting_path(meeting.id), :remote => "true", :method => "Put") do %>
-            <%= hidden_field_tag(:status, "matched") %>
+            <%= hidden_field_tag(:status, "accepted") %>
             <%= submit_tag("Accept", :class => 'btn btn-info action') %>
           <% end %>
         <% end %>
-        <% if meeting.cancelable_for?(current_user)%>
+        <% if meeting.cancellable_for?(current_user)%>
          <%= form_tag(meeting_path(meeting.id), :remote => "true", :method => "Put") do %>
             <%= hidden_field_tag(:status, "cancelled") %>
             <%= submit_tag("Cancel", :class => 'btn btn-info') %>
