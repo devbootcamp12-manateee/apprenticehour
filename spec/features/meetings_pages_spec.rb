@@ -47,7 +47,8 @@ describe 'Meetings pages' do
       end
 
       it 'shows the contact form' do
-        page.should have_link("Contact Mentee")
+        page.should have_button("Send Email")
+        page.should have_button("Cancel")
       end
 
       it 'changes the status of the meeting to matched for other users' do
@@ -56,11 +57,11 @@ describe 'Meetings pages' do
       end
 
       context 'user clicks submit button' do
-        before { click_button "Contact Mentee" }
+        before { click_button "Send Email" }
         it 'sends an email to the mentee'
 
         it 'hides the contact form' do
-          page.should_not have_link("Contact Mentee")
+          page.should_not have_button("Send Email")
         end
       end
     end
