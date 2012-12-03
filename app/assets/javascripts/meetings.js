@@ -1,22 +1,14 @@
 var Meeting = {
   init: function() {
-    $('.action').on('click', 'button', this.showForm);
+    $('.action').on('click', this.showForm);
     $('.form input[type="text"]').blur(this.validateFields);
     $('.form form').on('submit', this.checkNewMeeting);
   },
 
   showForm: function(event) {
-    var $self = $(this),
-        $messageField = $("#m" + event.target.id[1]);
-        
-    if ($self.hasClass('accept')) {
-      $messageField.removeClass("hidden");
-      $self.siblings('button.decline').removeClass('hidden');
-    } else {
-      $messageField.addClass("hidden");
-      $self.siblings('button.accept').removeClass('hidden');
-    }
-    $self.addClass('hidden');  
+    $(this).parents('.meeting').addClass('meeting-with-form')
+    $messageField = $(this).parents('.meeting').children('.message')
+    $messageField.removeClass("hidden"); 
   },
 
   validateFields: function() {
