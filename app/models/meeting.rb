@@ -41,10 +41,6 @@ class Meeting < ActiveRecord::Base
   
   scope :filter_by_topic, lambda { |topic| where("topic_id = ?", topic.id) }
 
-  def self.expired_acceptance
-    accepted.where('updated_at < ?', 10.minutes.ago)
-  end
-
   def self.update_accepted_meetings
     Meeting.expired_acceptance.each(&:make_available)
   end
@@ -63,5 +59,10 @@ class Meeting < ActiveRecord::Base
 
   def make_available
     update_attribute(:status, 'available')
+  end
+
+private
+  def self.expired_acceptance
+    accepted.where('updated_at < ?', 10.minutes.ago)
   end
 end

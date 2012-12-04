@@ -1,11 +1,12 @@
 var Meeting = {
   init: function() {
-    $('.action').on('click', this.showForm);
+    $('input.action').on('click', this.showForm);
     $('.form input[type="text"]').blur(this.validateFields);
     $('.form form').on('submit', this.checkNewMeeting);
   },
 
   showForm: function(event) {
+    // debugger;
     $(this).parents('.meeting').addClass('meeting-with-form')
     $messageField = $(this).parents('.meeting').children('.message')
     $messageField.removeClass("hidden"); 

@@ -21,11 +21,11 @@ class MeetingsController < ApplicationController
   def update
     @meeting = Meeting.find(params[:id])
 
-    @meeting.mentor_id = current_user.id if params[:status] == "matched"
+    @meeting.mentor_id = current_user.id if params[:status] == "accepted"
     @meeting.status = params[:status]
 
     respond_to do |format|
-      if @meeting.save && @meeting.status != "matched"
+      if @meeting.save && @meeting.status != "accepted"
         format.js
       else
         render 'index'
