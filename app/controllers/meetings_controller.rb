@@ -25,8 +25,12 @@ class MeetingsController < ApplicationController
     @meeting.status = params[:status]
 
     respond_to do |format|
-      if @meeting.save && @meeting.status != "accepted"
-        format.js
+      if @meeting.save
+        if @meeting.status == "accepted"
+          format.js { render :nothing => true }
+        else
+          format.js
+        end
       else
         render 'index'
       end

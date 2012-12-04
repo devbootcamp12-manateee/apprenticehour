@@ -6,7 +6,6 @@ var Meeting = {
   },
 
   showForm: function(event) {
-    // debugger;
     $(this).parents('.meeting').addClass('meeting-with-form')
     $messageField = $(this).parents('.meeting').children('.message')
     $messageField.removeClass("hidden"); 
@@ -40,6 +39,7 @@ var Meeting = {
       $(description).addClass('inputError');
       $(neighborhood).attr('placeholder', 'Please enter a neighborhood');
       $(description).attr('placeholder', 'Please enter a description');
+      return false;
     }
   }
 
