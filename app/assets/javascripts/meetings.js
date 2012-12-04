@@ -1,14 +1,15 @@
 var Meeting = {
   init: function() {
-    $('input.action').on('click', this.showForm);
+    $('input[value="Accept"]').on('click', this.showForm);
     $('.form input[type="text"]').blur(this.validateFields);
     $('.form form').on('submit', this.checkNewMeeting);
-    $('.nevermind').on('click', this.unAcceptMeeting);
+    $('input[value="Nevermind"]').on('click', this.unAcceptMeeting);
   },
 
   unAcceptMeeting: function(event) {
     $(this).parents('.message').addClass('hidden');
     $(this).parents('.meeting').removeClass('meeting-with-form');
+    $('input[disabled="disabled"]').removeAttr('disabled');
   },
 
   showForm: function(event) {

@@ -23,20 +23,10 @@ class MeetingsController < ApplicationController
     @meeting.mentor = nil if params[:status] == 'available'
     @meeting.status = params[:status]
 
-    respond_to do |format|
-      if @meeting.save
-        if @meeting.status == "accepted"
-          format.js { render :nothing => true }
-        else
-          if @meeting.status == "matched"
-            MeetingRequestMailer.matched(@meeting, params[:message]).deliver
-          end
-          format.js
-          format.json
-        end
-      else
-        render 'index'
-      end
+    if @meeting.save && @meeting.status == "matched"
+      MeetingRequestMailer.matched(@meeting, params[:message]).deliver
+    elsif @meeting.status != 'completed'
+      render :nothing => true
     end
   end
 end
