@@ -19,7 +19,7 @@ class MeetingsController < ApplicationController
 
   def update
     @meeting = Meeting.find(params[:id])
-
+ 
     @meeting.mentor_id = current_user.id if params[:status] == "accepted"
     @meeting.status = params[:status]
 
@@ -28,6 +28,7 @@ class MeetingsController < ApplicationController
         if @meeting.status == "accepted"
           format.js { render :nothing => true }
         else
+          MeetingRequestMailer.matched(@meeting).deliver if @meeting.status == "matched"
           format.js
         end
       else

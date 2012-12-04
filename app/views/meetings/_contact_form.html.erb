@@ -2,7 +2,12 @@
   <textarea style="resize:none;">Hi, let's talk!</textarea>
   <span>
     <ul>
-      <li><button class="btn">Send Email</button><br /></li>
+      <li>
+        <%= form_tag(meeting_path(meeting.id), :remote => "true", :method => "put") do %>
+          <%= hidden_field_tag(:status, "matched") %>
+          <%= submit_tag("Send Email", :class => 'btn btn-info') %>
+        <% end %>
+      </li>
       <li><button class="btn btn-danger">Nevermind</button></li>
     </ul>
   </span>

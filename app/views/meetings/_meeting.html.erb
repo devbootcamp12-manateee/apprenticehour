@@ -54,6 +54,6 @@
       <%= image_tag 'question_mark.png' %> 
     <% end %>
   </div>
-  <%= render 'meetings/contact_form' %> 
+  <%= render :partial => 'meetings/contact_form', :locals => {:meeting => meeting} %>
 
 </div>
