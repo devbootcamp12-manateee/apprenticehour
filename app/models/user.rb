@@ -35,10 +35,15 @@ class User < ActiveRecord::Base
 
   def self.from_oauth(auth)
     where(auth.slice(:provider, :uid)).first_or_initialize.tap do |user|
+      puts "#{'*'*100} --- #{auth.info.email.class}"
       user.provider         = auth.provider
       user.uid              = auth.uid
       user.name             = auth.info.name
-      user.email            = auth.info.email || user.email || user.name
+      if auth.info.email.empty? && user.email.nil?
+        user.email = user.name
+      else
+        user.email = user.email || auth.info.email
+      end
       user.gravatar         = auth.info.image
       user.oauth_token      = auth.credentials.token
       user.oauth_expires_at = Time.at(auth.credentials.expires_at) if auth.credentials.expires_at
