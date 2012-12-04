@@ -7,7 +7,6 @@ class MeetingsController < ApplicationController
 
   def create
     @meeting = current_user.mentee_meetings.build(params[:meeting])
-    logger.debug(@meeting.inspect)
     respond_to do |format|
       if @meeting.save
         format.js
@@ -24,8 +23,9 @@ class MeetingsController < ApplicationController
     @meeting.status = params[:status]
 
     respond_to do |format|
-      if @meeting.save && @meeting.status != "matched"
-        format.js
+      if @meeting.save
+        MeetingRequestMailer.matched(@meeting).deliver if @meeting.status == "matched"
+        format.js unless @meeting.status != "matched"   
       else
         render 'index'
       end
