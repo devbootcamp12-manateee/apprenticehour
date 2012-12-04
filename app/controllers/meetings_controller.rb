@@ -19,14 +19,19 @@ class MeetingsController < ApplicationController
 
   def update
     @meeting = Meeting.find(params[:id])
-    @meeting.mentor = current_user if params[:status] == 'accepted'
-    @meeting.mentor = nil if params[:status] == 'available'
-    @meeting.status = params[:status]
 
-    if @meeting.save && @meeting.status == "matched"
-      MeetingRequestMailer.matched(@meeting, params[:message]).deliver
-    elsif @meeting.status != 'completed' && @meeting.status != 'cancelled'
+    if @meeting.status == 'matched' && params[:status] == 'matched'
       render :nothing => true
+    else
+      @meeting.mentor = current_user if params[:status] == 'accepted'
+      @meeting.mentor = nil if params[:status] == 'available'
+      @meeting.status = params[:status]
+
+      if @meeting.save && @meeting.status == "matched"
+        MeetingRequestMailer.matched(@meeting, params[:message]).deliver
+      elsif @meeting.status != 'completed' && @meeting.status != 'cancelled'
+        render :nothing => true
+      end
     end
   end
 end
