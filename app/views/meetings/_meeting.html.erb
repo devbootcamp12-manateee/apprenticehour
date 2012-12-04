@@ -21,7 +21,7 @@
         <% if meeting.cancellable_for?(current_user)%>
          <%= form_tag(meeting_path(meeting), :remote => "true", :method => "Put") do %>
             <%= hidden_field_tag(:status, "cancelled") %>
-            <%= submit_tag("Cancel", :class => 'btn btn-info') %>
+            <%= submit_tag("Cancel", :class => 'btn btn-danger') %>
           <% end %>
         <% end %>
       <% end %>
