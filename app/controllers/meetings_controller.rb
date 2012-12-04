@@ -8,7 +8,6 @@ class MeetingsController < ApplicationController
 
   def create
     @meeting = current_user.mentee_meetings.build(params[:meeting])
-    logger.debug(@meeting.inspect)
     respond_to do |format|
       if @meeting.save
         format.js
