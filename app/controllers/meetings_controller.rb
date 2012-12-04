@@ -24,8 +24,7 @@ class MeetingsController < ApplicationController
 
     respond_to do |format|
       if @meeting.save
-        MeetingRequestMailer.matched(@meeting).deliver if @meeting.status == "matched"
-        format.js unless @meeting.status != "matched"   
+        format.js unless @meeting.status == "matched"
       else
         render 'index'
       end
