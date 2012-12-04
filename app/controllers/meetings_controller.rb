@@ -1,7 +1,8 @@
 class MeetingsController < ApplicationController
   # respond_to :json
   def index
-    @meetings = Meeting.not_cancelled
+    Meeting.update_accepted_meetings
+    @meetings = Meeting.not_cancelled.sort_by_status
     # respond_with @meetings
   end
 
@@ -19,12 +20,16 @@ class MeetingsController < ApplicationController
   def update
     @meeting = Meeting.find(params[:id])
 
-    @meeting.mentor_id = current_user.id if params[:status] == "matched"
+    @meeting.mentor_id = current_user.id if params[:status] == "accepted"
     @meeting.status = params[:status]
 
     respond_to do |format|
       if @meeting.save
-        format.js unless @meeting.status == "matched"
+        if @meeting.status == "accepted"
+          format.js { render :nothing => true }
+        else
+          format.js
+        end
       else
         render 'index'
       end

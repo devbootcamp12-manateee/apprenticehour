@@ -13,12 +13,12 @@
     <div class="action">
       <% if signed_in? %>
         <% if meeting.available_for?(current_user) %>
-          <%= form_tag(meeting_path(meeting.id), :remote => "true", :method => "Put") do %>
-            <%= hidden_field_tag(:status, "matched") %>
+          <%= form_tag(meeting_path(meeting.id), :remote => true, :method => "Put") do %>
+            <%= hidden_field_tag(:status, "accepted") %>
             <%= submit_tag("Accept", :class => 'btn btn-info action') %>
           <% end %>
         <% end %>
-        <% if meeting.cancelable_for?(current_user)%>
+        <% if meeting.cancellable_for?(current_user)%>
          <%= form_tag(meeting_path(meeting.id), :remote => "true", :method => "Put") do %>
             <%= hidden_field_tag(:status, "cancelled") %>
             <%= submit_tag("Cancel", :class => 'btn btn-info') %>
@@ -38,14 +38,20 @@
   </div>
   <div class='span2 user'>
     <p class='info'>Mentee:</p>
-    <%= image_tag meeting.mentee.gravatar %>
-    <p><%= meeting.mentee.name %></p>
+    <a href="<%= user_path(meeting.mentee) %>">
+      <%= image_tag meeting.mentee.gravatar %>
+      <p><%= meeting.mentee.name %></p>
+    </a>
   </div>
   <div class='span2 user'>
     <p class='info'>Mentor:</p>
     <% if meeting.mentor %>
-      <%= image_tag meeting.mentor.gravatar %>
-      <p><%= meeting.mentor.name %></p>
+      <a href="<%= user_path(meeting.mentor) %>">
+        <%= image_tag meeting.mentor.gravatar %>
+        <p><%= meeting.mentor.name %></p>
+      </a>
+    <% else %>
+      <%= image_tag 'question_mark.png' %> 
     <% end %>
   </div>
   <%= render 'meetings/contact_form' %> 

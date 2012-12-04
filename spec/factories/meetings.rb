@@ -18,6 +18,16 @@ FactoryGirl.define do
       status "matched"
     end
 
+    trait :accepted do
+      status "accepted"
+    end
+
+    trait :old do
+      updated_at 15.minutes.ago
+    end
+
+    factory :old_accepted_meeting, :traits => [:with_mentor, :accepted, :old]
+    factory :accepted_meeting, :traits => [:with_mentor, :accepted]
     factory :cancelled_meeting, :traits => [:with_mentor, :cancelled]
     factory :matched_meeting, :traits => [:with_mentor, :matched]
   end

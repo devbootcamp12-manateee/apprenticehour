@@ -1,6 +1,6 @@
 var Meeting = {
   init: function() {
-    $('.action').on('click', this.showForm);
+    $('input.action').on('click', this.showForm);
     $('.form input[type="text"]').blur(this.validateFields);
     $('.form form').on('submit', this.checkNewMeeting);
   },
@@ -39,6 +39,7 @@ var Meeting = {
       $(description).addClass('inputError');
       $(neighborhood).attr('placeholder', 'Please enter a neighborhood');
       $(description).attr('placeholder', 'Please enter a description');
+      return false;
     }
   }
 
