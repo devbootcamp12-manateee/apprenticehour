@@ -21,7 +21,7 @@ class MeetingsController < ApplicationController
     @meeting = Meeting.find(params[:id])
 
     if @meeting.status == 'matched' && params[:status] == 'matched'
-      render :nothing => true
+      render :template => 'error.js.erb'
     else
       @meeting.mentor = current_user if params[:status] == 'accepted'
       @meeting.mentor = nil if params[:status] == 'available'
