@@ -28,7 +28,10 @@ class MeetingsController < ApplicationController
         if @meeting.status == "accepted"
           format.js { render :nothing => true }
         else
-          MeetingRequestMailer.matched(@meeting).deliver if @meeting.status == "matched"
+          if @meeting.status == "matched"
+            @message = params[:message]
+            MeetingRequestMailer.matched(@meeting).deliver
+          end
           format.js
         end
       else

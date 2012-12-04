@@ -1,14 +1,14 @@
 <div class="message hidden">
-  <textarea style="resize:none;">Hi, let's talk!</textarea>
-  <span>
-    <ul>
-      <li>
-        <%= form_tag(meeting_path(meeting.id), :remote => "true", :method => "put") do %>
+  <%= form_tag(meeting_path(meeting.id), :remote => "true", :method => "put") do %>
+    <%= text_area_tag("message", nil, :class => 'message') %>
+    <span>
+      <ul>
+        <li>
           <%= hidden_field_tag(:status, "matched") %>
           <%= submit_tag("Send Email", :class => 'btn btn-info') %>
-        <% end %>
-      </li>
-      <li><button class="btn btn-danger">Nevermind</button></li>
-    </ul>
-  </span>
+        </li>
+        <li><button class="btn btn-danger">Nevermind</button></li>
+      </ul>
+    </span>
+  <% end %>
 </div>
