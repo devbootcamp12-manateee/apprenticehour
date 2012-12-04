@@ -48,7 +48,7 @@ describe 'Meetings pages' do
 
       it 'shows the contact form' do
         page.should have_button("Send Email")
-        page.should have_button("Cancel")
+        page.should have_button("Nevermind")
       end
 
       it 'changes the status of the meeting to matched for other users' do
