@@ -7,11 +7,11 @@
           <%= hidden_field_tag(:status, "matched") %>
           <%= submit_tag("Send Email", :class => 'btn btn-info') %>
         </li>
-  <% end %>
+  <% end %><br>
         <li>
           <%= form_tag(meeting_path(meeting.id), :remote => true, :method => "Put") do %>
             <%= hidden_field_tag(:status, "available") %>
-            <%= submit_tag("Nevermind", :class => 'btn btn-info action') %>
+            <%= submit_tag("Nevermind", :class => 'btn btn-danger action') %>
           <% end %>
         </li>
       </ul>
