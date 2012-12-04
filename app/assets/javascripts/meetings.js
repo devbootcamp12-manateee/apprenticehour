@@ -3,12 +3,20 @@ var Meeting = {
     $('input.action').on('click', this.showForm);
     $('.form input[type="text"]').blur(this.validateFields);
     $('.form form').on('submit', this.checkNewMeeting);
+    $('.nevermind').on('click', this.unAcceptMeeting);
+  },
+
+  unAcceptMeeting: function(event) {
+    $(this).parents('.message').addClass('hidden');
+    $(this).parents('.meeting').removeClass('meeting-with-form');
   },
 
   showForm: function(event) {
-    $(this).parents('.meeting').addClass('meeting-with-form')
-    $messageField = $(this).parents('.meeting').children('.message')
-    $messageField.removeClass("hidden"); 
+    $(this).parents('.meeting').addClass('meeting-with-form');
+    $messageField = $(this).parents('.meeting').children('.message');
+    $messageField.removeClass("hidden");
+    $(this).submit();
+    $(this).attr('disabled','disabled');
   },
 
   validateFields: function() {

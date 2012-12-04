@@ -19,8 +19,8 @@ class MeetingsController < ApplicationController
 
   def update
     @meeting = Meeting.find(params[:id])
- 
-    @meeting.mentor_id = current_user.id if params[:status] == "accepted"
+    @meeting.mentor = current_user if params[:status] == 'accepted'
+    @meeting.mentor = nil if params[:status] == 'available'
     @meeting.status = params[:status]
 
     respond_to do |format|
@@ -32,6 +32,7 @@ class MeetingsController < ApplicationController
             MeetingRequestMailer.matched(@meeting, params[:message]).deliver
           end
           format.js
+          format.json
         end
       else
         render 'index'
