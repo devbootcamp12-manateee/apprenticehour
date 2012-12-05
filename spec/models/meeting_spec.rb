@@ -95,7 +95,7 @@ describe Meeting do
     end
   end
 
-  describe 'updating accepted meetings' do
+  describe '.update_accepted_meetings' do
     context 'when updated more than 10 minutes ago' do
       it 'resets the meeting status to available' do
         old_accepted_meeting = create(:old_accepted_meeting)

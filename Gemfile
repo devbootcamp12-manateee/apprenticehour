@@ -25,6 +25,8 @@ group :development, :test do
   gem 'shoulda-matchers'
   
   gem 'faker'
+  gem 'jasmine'
+  gem 'jasmine-spec-extras'
 end
 
 group :test do
