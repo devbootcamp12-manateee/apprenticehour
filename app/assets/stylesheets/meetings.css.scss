@@ -92,6 +92,7 @@ body {
 
   .message {
     margin-top: 20px;
+    position: relative;
 
     button {
       margin-bottom: 15px;
@@ -145,4 +146,12 @@ body {
       border: 1px solid red;
     }
   } 
+}
+
+form.nevermind {
+  display: inline;
+  position: absolute;
+  right: 26px;
+  bottom: 0;
+  width: 98px;
 }

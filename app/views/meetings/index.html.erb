@@ -5,4 +5,18 @@
     <%= render 'static_pages/how_it_works' %>
   <% end %>
   <%= render @meetings %>
-</div>
+  <%= will_paginate @meetings %>
+  
+  <!-- Modal -->
+  <div id="meetingTaken" class="modal hide fade" tabindex="-1" role="dialog">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      <h3>Whoops!</h3>
+    </div>
+    <div class="modal-body">
+      <p>It looks like someone else already took this meeting :(</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" data-dismiss="modal">Aw Shucks!</button>
+    </div>
+  </div>

@@ -2,7 +2,7 @@
   <div class='span2 left status-actions'>
     <div class="status">
       <% if meeting.completable_for?(current_user) %>
-        <%= form_tag(meeting_path(meeting.id), :remote => "true", :method => "Put") do %>
+        <%= form_tag(meeting_path(meeting), :remote => "true", :method => "Put") do %>
             <%= hidden_field_tag(:status, "completed") %>
             <%= submit_tag("We Met!", :class => 'btn btn-info') %>
         <% end %>
@@ -13,15 +13,15 @@
     <div class="action">
       <% if signed_in? %>
         <% if meeting.available_for?(current_user) %>
-          <%= form_tag(meeting_path(meeting.id), :remote => true, :method => "Put") do %>
+          <%= form_tag(meeting_path(meeting), :remote => true, :method => "Put") do %>
             <%= hidden_field_tag(:status, "accepted") %>
             <%= submit_tag("Accept", :class => 'btn btn-info action') %>
           <% end %>
         <% end %>
         <% if meeting.cancellable_for?(current_user)%>
-         <%= form_tag(meeting_path(meeting.id), :remote => "true", :method => "Put") do %>
+         <%= form_tag(meeting_path(meeting), :remote => "true", :method => "Put") do %>
             <%= hidden_field_tag(:status, "cancelled") %>
-            <%= submit_tag("Cancel", :class => 'btn btn-info') %>
+            <%= submit_tag("Cancel", :class => 'btn btn-danger') %>
           <% end %>
         <% end %>
       <% end %>
@@ -54,6 +54,5 @@
       <%= image_tag 'question_mark.png' %> 
     <% end %>
   </div>
-  <%= render :partial => 'meetings/contact_form', :locals => {:meeting => meeting} %>
-
+  <%= render 'meetings/contact_form', :meeting => meeting %> 
 </div>

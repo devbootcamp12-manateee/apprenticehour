@@ -13,6 +13,8 @@ gem "therubyracer"
 gem "less-rails"
 gem "twitter-bootstrap-rails"
 
+gem 'will_paginate', '~> 3.0.0'
+
 group :development, :test do
   gem 'rspec-rails'
   gem 'annotate'
@@ -25,6 +27,8 @@ group :development, :test do
   gem 'shoulda-matchers'
   
   gem 'faker'
+  gem 'jasmine'
+  gem 'jasmine-spec-extras'
 end
 
 group :test do

@@ -1,9 +1,7 @@
 class MeetingsController < ApplicationController
-  # respond_to :json
   def index
     Meeting.update_accepted_meetings
-    @meetings = Meeting.not_cancelled.sort_by_status
-    # respond_with @meetings
+    @meetings = Meeting.not_cancelled.sort_by_status.paginate(:page => params[:page], :per_page => 20)
   end
 
   def create
@@ -19,22 +17,18 @@ class MeetingsController < ApplicationController
 
   def update
     @meeting = Meeting.find(params[:id])
- 
-    @meeting.mentor_id = current_user.id if params[:status] == "accepted"
-    @meeting.status = params[:status]
 
-    respond_to do |format|
-      if @meeting.save
-        if @meeting.status == "accepted"
-          format.js { render :nothing => true }
-        else
-          if @meeting.status == "matched"
-            MeetingRequestMailer.matched(@meeting, params[:message]).deliver
-          end
-          format.js
-        end
-      else
-        render 'index'
+    if @meeting.status == 'matched' && params[:status] == 'matched'
+      render :template => 'meetings/error.js.erb'
+    else
+      @meeting.mentor = current_user if params[:status] == 'accepted'
+      @meeting.mentor = nil if params[:status] == 'available'
+      @meeting.status = params[:status]
+
+      if @meeting.save && @meeting.status == "matched"
+        MeetingRequestMailer.matched(@meeting, params[:message]).deliver
+      elsif @meeting.status != 'completed' && @meeting.status != 'cancelled'
+        render :nothing => true
       end
     end
   end
