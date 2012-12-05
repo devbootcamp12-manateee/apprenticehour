@@ -28,7 +28,7 @@ class MeetingsController < ApplicationController
       if @meeting.save && @meeting.status == "matched"
         MeetingRequestMailer.matched(@meeting, params[:message]).deliver
       elsif @meeting.status != 'completed' && @meeting.status != 'cancelled'
-        render :nothing => :true
+        render :nothing => true
       end
     end
   end
