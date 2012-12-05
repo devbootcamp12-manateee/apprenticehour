@@ -1,7 +1,7 @@
 class MeetingsController < ApplicationController
   def index
     Meeting.update_accepted_meetings
-    @meetings = Meeting.not_cancelled.sort_by_status
+    @meetings = Meeting.not_cancelled.sort_by_status.paginate(:page => params[:page], :per_page => 20)
   end
 
   def create

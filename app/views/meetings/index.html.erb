@@ -5,6 +5,7 @@
     <%= render 'static_pages/how_it_works' %>
   <% end %>
   <%= render @meetings %>
+  <%= will_paginate @meetings %>
   
   <!-- Modal -->
   <div id="meetingTaken" class="modal hide fade" tabindex="-1" role="dialog">
