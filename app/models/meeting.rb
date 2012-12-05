@@ -58,7 +58,7 @@ class Meeting < ActiveRecord::Base
   end
 
   def make_available
-    update_attribute(:status, 'available')
+    update_attributes(:status => 'available', :mentor => nil)
   end
 
 private
