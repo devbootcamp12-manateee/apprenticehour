@@ -16,3 +16,6 @@
 /ignore/*
 
 /vendor/bundle
+
+# Coverage
+/coverage
