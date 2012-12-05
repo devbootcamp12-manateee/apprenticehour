@@ -1,13 +1,9 @@
 var Meeting = {
   init: function() {
-
     $('input[value="Accept"]').on('click', this.showForm);
     $('.form form').on('submit', this.checkNewMeeting);
     $('input[value="Nevermind"]').on('click', this.unAcceptMeeting);
-
     $('.form input[type="text"]').blur(this.handleInputChange);
-   
-    
   },
 
   unAcceptMeeting: function(event) {
@@ -51,7 +47,5 @@ var Meeting = {
     }
   }
 };
-
-
 
 $(document).ready(function(){ Meeting.init(); });
