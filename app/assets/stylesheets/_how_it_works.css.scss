@@ -1,0 +1,42 @@
+#how-it-works {
+  text-align: center;
+  h1 {font-family: "museo-slab";}
+  font-family: "museo-sans";
+}
+
+.step-description {
+  font-size: 14pt;
+  line-height: 20px;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-top: 25px;
+  padding-bottom: 0px;
+}
+
+#top-blurb {
+  font-size: 18pt;
+  font-family: "museo-sans";
+  line-height: 17px;
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
+
+#visitor-buttons {
+  padding-bottom: 30px;
+}
+
+button.learn-more {
+  padding: 20px;
+  margin: 10px;
+  height: 70px;
+  font-family: "museo-slab";
+}
+
+button.signup {
+  margin: 10px;
+  max-width: 150px;
+  height: 70px;
+  font-family: "museo-slab";
+  font-style: bold;
+  border-width: 5px;
+}

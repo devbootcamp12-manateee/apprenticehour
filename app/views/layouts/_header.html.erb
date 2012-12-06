@@ -1,18 +1,18 @@
-<div class="navbar">
+<div class="navbar navbar-inverse some">
   <div class="navbar-inner">
-    <a class="brand" href="/">Manatee</a>
+    <a class="custom_brand" href="/">ApprenticeHour</a>
 
-    <ul class="nav">
+    <ul class="custom_nav_title">
       <li><%= link_to 'How It Works', faq_path %></li>
     </ul>
 
 
-    <ul class="nav pull-right">
+    <ul class="custom_nav_title pull-right">
       <% if signed_in? %>
-        <li><%= link_to current_user.name, current_user %></li>
-        <li><%= link_to 'Sign Out', signout_path %></li>
+        <li class="auth_margin auth_name"><%= link_to current_user.name, current_user %></li>
+        <li class="auth_margin"><%= link_to 'Sign Out', signout_path %></li>
       <% else %>
-        <li><%= link_to 'Sign in via Github', '/auth/github' %></li>
+        <li class="auth_margin"><%= link_to 'Sign in via Github', '/auth/github' %></li>
       <% end %>
     </ul>
   </div>

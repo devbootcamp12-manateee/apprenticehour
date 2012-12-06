@@ -1,0 +1,50 @@
+ul.nav {
+  font-family: "museo-sans";
+}
+
+.custom_brand {
+  color: #FFF;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  float: left;
+  display: block;
+  padding: 10px 20px 10px;
+  margin-left: -20px;
+  font-size: 20px;
+  font-weight: 200;
+  font-family: "museo-slab";
+  &:hover {
+    color: #AAA;
+    text-decoration: none;
+  } 
+}
+
+ul.custom_nav_title {
+  font-family: "museo-sans";
+  list-style: none;
+  height: 12px;
+  a {
+    color: #FFF;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    float: none;
+    padding: 10px 15px;
+    text-decoration: none;
+    display: block;
+    cursor: auto;
+    &:hover {
+      color: #AAA;
+      text-decoration: none;
+    }
+  }
+  li {
+    line-height: 20px;
+    text-align: -webkit-match-parent;
+  }
+}
+
+.auth_margin {
+  margin-top:-22px;
+}
+
+.auth_name {
+  float:left; margin-left: -100px;
+}
