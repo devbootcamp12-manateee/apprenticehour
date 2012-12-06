@@ -20,7 +20,6 @@ class MeetingsController < ApplicationController
 
     @meeting.status = params[:status]
     @meeting.mentor = current_user if @meeting.matched?
-
     if @meeting.save
       unless @meeting.send_match_message(params[:message])
         render :nothing => true

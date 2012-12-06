@@ -7,7 +7,7 @@ describe 'Meetings pages' do
   describe 'Meeting requests' do
     let!(:m1) { create(:meeting, :description => "foo") }
     let!(:m2) { create(:matched_meeting, :description => "bar") } 
-    let!(:m3) { create(:cancelled_meeting, :description => "hat") }
+    let!(:m3) { create(:cancelled_meeting, :description => "shoe") }
 
     before { visit meetings_path }
 
@@ -53,13 +53,12 @@ describe 'Meetings pages' do
 
       it 'changes the status of the meeting to matched for other users' do
         click_link "Sign Out"
-        page.should have_content("accepted")
+        page.should have_css(".matched_image")
       end
 
       context 'user clicks submit button' do
         before { click_button "Send Email" }
         it 'sends an email to the mentee'
-
         it 'hides the contact form' do
           page.should have_selector("#message", visible: false)
         end
@@ -85,14 +84,14 @@ describe 'Meetings pages' do
       end
 
       it 'shows status as waiting' do
-        page.should have_content("available")
+        page.should have_css(".available_image")
       end
 
       context 'user clicks cancel button', :js => true do
         before { click_button "Cancel" }
 
         it "changes the status to cancelled" do
-          page.should have_content('cancelled')
+          page.should have_css(".cancelled_image")
         end
       end
 
@@ -104,7 +103,7 @@ describe 'Meetings pages' do
         end
 
         it 'shows status as completed' do
-          page.should have_content('completed')
+          page.should have_css(".completed_image")
         end
       end
     end

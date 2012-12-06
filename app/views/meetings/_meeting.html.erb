@@ -8,13 +8,13 @@
         <% end %>
       <% else %>
         <p><% if meeting.status == "available" %>
-              <%= image_tag 'apprentice_icon.png' %>
+              <%= image_tag 'apprentice_icon.png', :class => "available_image" %>
             <% elsif meeting.status == "matched" || meeting.status == "accepted" %>
-              <%= image_tag 'matched_icon.png' %>
+              <%= image_tag 'matched_icon.png', :class => "matched_image" %>
             <% elsif meeting.status == "cancelled" %>
-              <%= image_tag 'cancelled_icon.png' %>
+              <%= image_tag 'cancelled_icon.png', :class => "cancelled_image" %>
             <% else meeting.status == "completed" %>
-              <%= image_tag 'completed_icon.png' %>
+              <%= image_tag 'completed_icon.png', :class => "completed_image" %>
             <% end %>
         </p>
       <% end %>
