@@ -42,6 +42,8 @@ class Meeting < ActiveRecord::Base
   validate :valid_combination_of_mentor_id_and_status
   validate :valid_transition
 
+  default_scope includes(:mentee, :mentor, :topic)
+
   scope :available,     where(:status => 'available')
   scope :matched,       where(:status => 'matched')
   scope :accepted,      where(:status => 'accepted')
