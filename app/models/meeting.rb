@@ -14,6 +14,15 @@
 #
 
 class Meeting < ActiveRecord::Base
+  VALID_TRANSITIONS = {
+    nil         => ['available'],
+    'available' => ['accepted', 'cancelled', 'available'],
+    'accepted'  => ['matched', 'available', 'accepted'],
+    'matched'   => ['cancelled', 'completed'],
+    'cancelled' => ['cancelled'],
+    'completed' => ['completed']
+  }
+  self.per_page = 20
   attr_accessible :description, :neighborhood, :status, :topic_id, :mentor_id
   # statuses: available, accepted, matched, completed, cancelled
 
@@ -31,18 +40,22 @@ class Meeting < ActiveRecord::Base
     :length => { maximum: 64 }
 
   validate :valid_combination_of_mentor_id_and_status
-    #it cant be accepted if there is already a mentor_id
+  validate :valid_transition
 
   scope :available,     where(:status => 'available')
   scope :matched,       where(:status => 'matched')
   scope :accepted,      where(:status => 'accepted')
-  scope :not_cancelled, where('status != ?', 'cancelled')
+  scope :not_cancelled, where("status != 'cancelled'")
 
   scope :sort_by_created_desc, order("created_at DESC")
   scope :sort_by_status,       order("CASE WHEN (status = 'available') \
     THEN 1 WHEN (status = 'accepted') THEN 2 ELSE 3 END ASC")
   
   scope :filter_by_topic, lambda { |topic| where("topic_id = ?", topic.id) }
+
+  def self.active(page=1)
+    not_cancelled.sort_by_status.paginate(:page => page)
+  end
 
   def self.update_accepted_meetings
     Meeting.expired_acceptance.each(&:make_available)
@@ -64,15 +77,33 @@ class Meeting < ActiveRecord::Base
     update_attributes(:status => 'available', :mentor_id => nil)
   end
 
-  def self.valid_transition?(current_state, next_state)
-    valid_transition = { 'available' => ['accepted', 'cancelled'],
-                         'accepted'  => ['matched', 'available', 'accepted'],
-                         'matched'   => ['cancelled', 'completed'],
-                         'cancelled' => ['cancelled'],
-                         'completed' => ['completed']
-                       }
+  def valid_transition
+    unless VALID_TRANSITIONS[status_was].include? status
+      errors.add(:status, "transition is invalid")
+    end
+  end
 
-    valid_transition[current_state].include?(next_state)                 
+  def send_match_message(message)
+    if matched?
+      MeetingRequestMailer.matched(self, message).deliver
+      true
+    elsif available? || accepted?
+      false
+    else
+      true
+    end
+  end
+
+  def matched?
+    status == 'matched'
+  end
+
+  def available?
+    status == 'available'
+  end
+
+  def accepted?
+    status == 'accepted'
   end
 
 private
@@ -82,7 +113,7 @@ private
   end
 
   def valid_combination_of_mentor_id_and_status
-    if ((status == 'accepted' || status == 'available') && !mentor_id.nil?)
+    if ((accepted? || available?) && mentor_id?)
       errors.add(:status, "another mentor has taken this meeting")
     end
   end
