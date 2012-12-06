@@ -53,7 +53,7 @@ describe 'Meetings pages' do
 
       it 'changes the status of the meeting to matched for other users' do
         click_link "Sign Out"
-        page.should have_content("matched")
+        page.should have_content("accepted")
       end
 
       context 'user clicks submit button' do
@@ -61,7 +61,7 @@ describe 'Meetings pages' do
         it 'sends an email to the mentee'
 
         it 'hides the contact form' do
-          page.should_not have_button("Send Email")
+          page.should have_selector("#message", visible: false)
         end
       end
     end
@@ -110,7 +110,14 @@ describe 'Meetings pages' do
     end
 
     context 'user clicks submit button' do
-      #TODO: this will fail until we can fill out the meeting request form
+      before do
+        Topic.create(:description => "Rails")
+        visit meetings_path
+        fill_in "meeting[description]", :with => "I need help"
+        fill_in "meeting[neighborhood]", :with => "mission"
+        page.select( "Rails", :from => "meeting[topic_id]" )
+      end
+
       it 'creates a new meeting' do
         expect { click_button "Submit" }.to change(Meeting, :count).by(1)
       end
