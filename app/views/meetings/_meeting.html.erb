@@ -7,7 +7,16 @@
             <%= submit_tag("We Met!", :class => 'btn btn-info') %>
         <% end %>
       <% else %>
-        <p><%= meeting.status %></p>
+        <p><% if meeting.status == "available" %>
+              <%= image_tag 'apprentice_icon.png' %>
+            <% elsif meeting.status == "matched" || meeting.status == "accepted" %>
+              <%= image_tag 'matched_icon.png' %>
+            <% elsif meeting.status == "cancelled" %>
+              <%= image_tag 'cancelled_icon.png' %>
+            <% else meeting.status == "completed" %>
+              <%= image_tag 'completed_icon.png' %>
+            <% end %>
+        </p>
       <% end %>
     </div>
     <div class="action">
@@ -15,13 +24,13 @@
         <% if meeting.available_for?(current_user) %>
           <%= form_tag(meeting_path(meeting), :remote => true, :method => "Put") do %>
             <%= hidden_field_tag(:status, "accepted") %>
-            <%= submit_tag("Accept", :class => 'btn btn-info action') %>
+            <%= submit_tag("Accept", :class => 'btn action') %>
           <% end %>
         <% end %>
         <% if meeting.cancellable_for?(current_user)%>
          <%= form_tag(meeting_path(meeting), :remote => "true", :method => "Put") do %>
             <%= hidden_field_tag(:status, "cancelled") %>
-            <%= submit_tag("Cancel", :class => 'btn btn-danger') %>
+            <%= submit_tag("Cancel", :class => 'btn') %>
           <% end %>
         <% end %>
       <% end %>
@@ -37,22 +46,20 @@
     </div>
   </div>
   <div class='span2 user'>
-    <p class='info'>Mentee:</p>
-    <a href="<%= user_path(meeting.mentee) %>">
-      <%= image_tag meeting.mentee.gravatar %>
-      <p><%= meeting.mentee.name %></p>
-    </a>
-  </div>
-  <div class='span2 user'>
-    <p class='info'>Mentor:</p>
     <% if meeting.mentor %>
       <a href="<%= user_path(meeting.mentor) %>">
-        <%= image_tag meeting.mentor.gravatar %>
+        <img class="user-mentor" src=<%=meeting.mentor.gravatar%> />
         <p><%= meeting.mentor.name %></p>
       </a>
     <% else %>
-      <%= image_tag 'question_mark.png' %> 
+      <%= image_tag 'question_mark.png' %>
     <% end %>
+  </div>
+    <div class='span2 user'>
+    <a href="<%= user_path(meeting.mentee) %>">
+      <img class="user-apprentice" src=<%=meeting.mentee.gravatar%> />
+      <p><%= meeting.mentee.name %></p>
+    </a>
   </div>
   <%= render 'meetings/contact_form', :meeting => meeting %> 
 </div>
