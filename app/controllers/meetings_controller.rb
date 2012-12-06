@@ -17,18 +17,21 @@ class MeetingsController < ApplicationController
 
   def update
     @meeting = Meeting.find(params[:id])
-
-    if @meeting.status == 'matched' && params[:status] == 'matched'
+    if !Meeting.valid_transition?(@meeting.status, params[:status])
       render :template => 'meetings/error.js.erb'
     else
-      @meeting.mentor = current_user if params[:status] == 'accepted'
+      @meeting.mentor = current_user if params[:status] == 'matched'
       @meeting.mentor = nil if params[:status] == 'available'
       @meeting.status = params[:status]
 
-      if @meeting.save && @meeting.status == "matched"
-        MeetingRequestMailer.matched(@meeting, params[:message]).deliver
-      elsif @meeting.status != 'completed' && @meeting.status != 'cancelled'
-        render :nothing => true
+      if @meeting.save
+        if @meeting.status == "matched"
+          MeetingRequestMailer.matched(@meeting, params[:message]).deliver
+        elsif @meeting.status == 'available' || @meeting.status == 'accepted'
+          render :nothing => true
+        end
+      else
+        render :template => 'meetings/error.js.erb'
       end
     end
   end

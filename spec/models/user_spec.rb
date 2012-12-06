@@ -52,7 +52,7 @@ describe User do
 	describe '#mentor_meetings' do
 		it 'returns a list of meetings for which the user is the mentor' do
 			user = FactoryGirl.create(:user)
-			mentor_meeting = FactoryGirl.create(:meeting, :mentor => user)
+			mentor_meeting = FactoryGirl.create(:matched_meeting, :mentor => user)
 			other_meeting = FactoryGirl.create(:meeting)
 			
 			user.mentor_meetings.should eq [mentor_meeting]
