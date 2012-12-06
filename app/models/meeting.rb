@@ -30,6 +30,9 @@ class Meeting < ActiveRecord::Base
     :presence => true,
     :length => { maximum: 64 }
 
+  validate :valid_combination_of_mentor_id_and_status
+    #it cant be accepted if there is already a mentor_id
+
   scope :available,     where(:status => 'available')
   scope :matched,       where(:status => 'matched')
   scope :accepted,      where(:status => 'accepted')
@@ -61,8 +64,26 @@ class Meeting < ActiveRecord::Base
     update_attributes(:status => 'available', :mentor_id => nil)
   end
 
+  def self.valid_transition?(current_state, next_state)
+    valid_transition = { 'available' => ['accepted', 'cancelled'],
+                         'accepted'  => ['matched', 'available', 'accepted'],
+                         'matched'   => ['cancelled', 'completed'],
+                         'cancelled' => ['cancelled'],
+                         'completed' => ['completed']
+                       }
+
+    valid_transition[current_state].include?(next_state)                 
+  end
+
 private
+
   def self.expired_acceptance
     accepted.where('updated_at < ?', 10.minutes.ago)
+  end
+
+  def valid_combination_of_mentor_id_and_status
+    if ((status == 'accepted' || status == 'available') && !mentor_id.nil?)
+      errors.add(:status, "another mentor has taken this meeting")
+    end
   end
 end
