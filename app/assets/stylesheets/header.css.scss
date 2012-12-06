@@ -1,3 +1,7 @@
+.navbar-inner {
+  border-radius: 0px;
+}
+
 ul.nav {
   font-family: "museo-sans";
 }
@@ -15,7 +19,7 @@ ul.nav {
   &:hover {
     color: #AAA;
     text-decoration: none;
-  } 
+  }
 }
 
 ul.custom_nav_title {
