@@ -38,7 +38,7 @@ class User < ActiveRecord::Base
       user.provider         = auth.provider
       user.uid              = auth.uid
       user.name             = auth.info.name
-      if auth.info.email.empty? && user.email.nil?
+      if auth.info.email.nil? && user.email.nil?
         user.email = user.name
       else
         user.email = user.email || auth.info.email
