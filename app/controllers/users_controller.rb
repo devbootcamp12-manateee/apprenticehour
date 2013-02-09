@@ -14,7 +14,7 @@ class UsersController < ApplicationController
       sign_in @user
       redirect_to root_path
     else
-      flash[:alert] = 'Please enter an email address'
+      flash[:alert] = 'Please enter a valid email address'
       redirect_to edit_user_path(@user)
     end
   end
