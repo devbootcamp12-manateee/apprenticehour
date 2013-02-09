@@ -17,8 +17,8 @@
 class User < ActiveRecord::Base
   validates :uid,      :presence => true
   validates :provider, :presence => true
-  validates :email,    :presence => true,
-                       :uniqueness => true
+  # validates :email,    :presence => true,
+  #                      :uniqueness => true
   validates :gravatar, :presence => true
 
   attr_accessible :email
