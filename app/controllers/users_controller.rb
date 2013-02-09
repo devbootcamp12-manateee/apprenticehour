@@ -8,16 +8,16 @@ class UsersController < ApplicationController
   def edit
   end
 
-  # def update
-  #   if params[:user][:email].match /.+@.+\..+/
-  #     @user.update_attributes(params[:user])
-  #     sign_in @user
-  #     redirect_to root_path
-  #   else
-  #     flash[:alert] = 'Please enter an email address'
-  #     redirect_to edit_user_path(@user)
-  #   end
-  # end
+  def update
+    if params[:user][:email].match /.+@.+\..+/
+      @user.update_attributes(params[:user])
+      sign_in @user
+      redirect_to root_path
+    else
+      flash[:alert] = 'Please enter an email address'
+      redirect_to edit_user_path(@user)
+    end
+  end
 
 private
   def correct_user?
