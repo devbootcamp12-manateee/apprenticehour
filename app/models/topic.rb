@@ -17,4 +17,6 @@ class Topic < ActiveRecord::Base
     :presence => true,
     :uniqueness => true,
     :length => { maximum: 30 }
+
+  default_scope order('description ASC')
 end
