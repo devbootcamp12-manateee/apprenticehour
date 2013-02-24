@@ -5,8 +5,9 @@
     <p>
     <%= @user.email %>
      | 
-    <%= link_to 'Edit', edit_user_path(@user) %>
+    <%= link_to 'Edit Profile', edit_user_path(@user) %>
     </p>
+    <p><%= @user.bio %></p>
   </div>
   <div id='meetings'>
     <%= render @meetings %>

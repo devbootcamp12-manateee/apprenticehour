@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @meetings = @user.meetings.not_cancelled
+    @bio = @user.bio
   end
 
   def edit

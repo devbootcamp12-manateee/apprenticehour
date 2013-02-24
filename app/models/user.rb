@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
   #                      :uniqueness => true
   validates :gravatar, :presence => true
 
-  attr_accessible :email
+  attr_accessible :email, :bio
 
   has_many :mentor_meetings,
            :class_name => 'Meeting',
